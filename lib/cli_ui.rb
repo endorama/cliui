@@ -6,5 +6,6 @@ require 'logger'
 
 require "cli_ui/loggable"
 require "cli_ui/reportable"
+require "cli_ui/runnable"
 require "cli_ui/questionable"
 require "cli_ui/version"
