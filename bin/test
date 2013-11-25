@@ -1,0 +1,76 @@
+#!/usr/env/bin ruby
+
+require 'cli_ui'
+
+include CliUI::Loggable
+
+CliUI::Loggable.level = Logger::DEBUG
+
+logger.debug 'asd'
+logger.info 'asd'
+logger.warn 'asd'
+logger.error 'asd'
+
+require 'highline'
+puts HighLine::SystemExtensions.terminal_size # [columns, lines]
+puts HighLine::SystemExtensions.terminal_size[0] # [columns, lines]
+
+include CliUI::Reportable
+
+header :title => "Go duck yourself",
+       # :width => HighLine::SystemExtensions.terminal_size[0],
+       :align => 'center',
+       :rule => true,
+       :color => 'white',
+       :bold => true,
+       :timestamp => true
+
+
+
+class Example
+  include CliUI::Loggable
+  include CliUI::Reportable
+  include CliUI::Runnable
+  include CliUI::Questionable
+
+  def initialize
+    self.formatter = 'progress'
+  end
+
+  def run
+    program_desc 'A simple todo list'
+    
+    puts agree 'is nice?', true
+
+    repetitions = ask("How many times you want to sum?  ", Integer) { |q| q.in = 0..20 }
+
+    report do
+      aligned 'start sum'
+      
+      sum = 0
+      logger.info "sum = #{sum}"
+
+      repetitions.times do
+
+        # if sum == 90
+        #   raise ArgumentError, "ahah :)"
+        # end
+        
+        sum += 10
+        logger.info "progress: sum = #{sum}"
+        
+        progress
+        sleep 1
+      end
+      vertical_spacing
+      aligned "Sum: #{sum}"
+      logger.info "sum ended: sum = #{sum}"
+    end
+  rescue Exception => e
+    logger.fatal 'Some fatal error occurred'
+    logger.fatal e.inspect
+    raise e
+  end
+end
+
+Example.new.run
