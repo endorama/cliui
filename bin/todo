@@ -23,20 +23,20 @@ pre do |global_options,command,options,args|
   # r = agree 'Are you sure to continue?', false
   # exit() if not r
 
+  header :title => "Go duck yourself",
+         :align => 'center',
+         :rule => true,
+         :color => 'white',
+         :bold => true,
+         :timestamp => true
+
+  self.formatter = 'progress'
+
   true # pre hook must return true
 end
 
-# command :add do |c|
-#   c.action do |global_options,options,args|
-#     # $todo_list.create(args)
-#   end
-# end
-
 command :list do |c|
   c.action do
-    # $todo_list.list.each do |todo|
-    #   printf("%5d - %s\n",todo.todo_id,todo.text)
-    # end
     puts 'list'
   end
 end
@@ -44,6 +44,10 @@ end
 command :sum do |c|
   c.action do
     repetitions = ask("How many times you want to sum?  ", Integer) { |q| q.in = 0..20 }
+
+    # require 'command_line_reporter'
+    # include CommandLineReporter
+    # CommandLineReporter::DEFAULTS[:formatter] = 'progress'
 
     report do
       aligned 'start sum'
@@ -63,20 +67,14 @@ command :sum do |c|
         progress
         sleep 1
       end
+      
       vertical_spacing
+      
       aligned "Sum: #{sum}"
+      
       logger.info "sum ended: sum = #{sum}"
     end
   end
 end
-
-# command :done do |c|
-#   c.action do |global_options,options,args|
-#     id = args.shift.to_i
-#     # $todo_list.list.each do |todo|
-#     #   $todo_list.complete(todo) if todo.todo_id == id
-#     # end
-#   end
-# end
 
 exit run(ARGV)
