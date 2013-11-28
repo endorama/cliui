@@ -30,7 +30,6 @@ header :title => "Go duck yourself",
 class Example
   include CliUI::Loggable
   include CliUI::Reportable
-  include CliUI::Runnable
   include CliUI::Questionable
 
   def initialize
@@ -38,8 +37,6 @@ class Example
   end
 
   def run
-    program_desc 'A simple todo list'
-    
     puts agree 'is nice?', true
 
     repetitions = ask("How many times you want to sum?  ", Integer) { |q| q.in = 0..20 }

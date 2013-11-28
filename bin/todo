@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+# require 'hacer'
+
+# require 'gli'
+# include GLI::App
+
+require 'cli_ui'
+
+include CliUI::Loggable
+include CliUI::Reportable
+include CliUI::Runnable
+include CliUI::Questionable
+
+program_desc 'A simple todo list'
+
+# flag [:t,:tasklist], :default_value => File.join(ENV['HOME'],'.todolist')
+
+
+pre do |global_options,command,options,args|
+  # $todo_list = Hacer::Todolist.new(global_options[:tasklist])
+  logger.info('Bootstrapping done')
+
+  # r = agree 'Are you sure to continue?', false
+  # exit() if not r
+
+  true # pre hook must return true
+end
+
+# command :add do |c|
+#   c.action do |global_options,options,args|
+#     # $todo_list.create(args)
+#   end
+# end
+
+command :list do |c|
+  c.action do
+    # $todo_list.list.each do |todo|
+    #   printf("%5d - %s\n",todo.todo_id,todo.text)
+    # end
+    puts 'list'
+  end
+end
+
+command :sum do |c|
+  c.action do
+    repetitions = ask("How many times you want to sum?  ", Integer) { |q| q.in = 0..20 }
+
+    report do
+      aligned 'start sum'
+      
+      sum = 0
+      logger.info "sum = #{sum}"
+
+      repetitions.times do
+
+        # if sum == 90
+        #   raise ArgumentError, "ahah :)"
+        # end
+        
+        sum += 10
+        logger.info "progress: sum = #{sum}"
+        
+        progress
+        sleep 1
+      end
+      vertical_spacing
+      aligned "Sum: #{sum}"
+      logger.info "sum ended: sum = #{sum}"
+    end
+  end
+end
+
+# command :done do |c|
+#   c.action do |global_options,options,args|
+#     id = args.shift.to_i
+#     # $todo_list.list.each do |todo|
+#     #   $todo_list.complete(todo) if todo.todo_id == id
+#     # end
+#   end
+# end
+
+exit run(ARGV)
