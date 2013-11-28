@@ -57,9 +57,10 @@ command :sum do |c|
 
       repetitions.times do
 
-        # if sum == 90
-        #   raise ArgumentError, "ahah :)"
-        # end
+        if sum == 90
+          # raise ArgumentError, "ahah :)"
+          exit(:software_error) # 70
+        end
         
         sum += 10
         logger.info "progress: sum = #{sum}"
@@ -74,6 +75,8 @@ command :sum do |c|
       
       logger.info "sum ended: sum = #{sum}"
     end
+
+    exit_status(:success)
   end
 end
 

@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "command_line_reporter"
   spec.add_runtime_dependency "highline"
   spec.add_runtime_dependency "gli"
+  spec.add_runtime_dependency "sysexits"
 end
