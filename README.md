@@ -1,5 +1,7 @@
 # CliUI
 
+**DEPRECATED**: Please have a look at the beautiful [tty toolkit](https://piotrmurach.github.io/tty/)
+
 CliUI is a gem that makes easy to create Command line User Interfaces ( Cli UI )
 
 With CliUI you can create UI for command line application in an easy and clean way, using a set of standard gems.
